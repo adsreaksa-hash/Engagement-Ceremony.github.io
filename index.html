@@ -313,6 +313,10 @@
           <button id="adminSaveBtn" style="border:none;border-radius:14px;padding:12px 14px;background:#2563eb;color:#fff;font-weight:800;cursor:pointer;">💾 Save</button>
           <button id="adminResetBtn" style="border:1px solid #ddd;border-radius:14px;padding:12px 14px;background:#fff;color:#111;font-weight:800;cursor:pointer;">↩ Reset Saved</button>
           <button id="adminChangePassBtn" style="border:1px solid #ddd;border-radius:14px;padding:12px 14px;background:#fff;color:#111;font-weight:800;cursor:pointer;">🔑 Change Password</button>
+          <div style="flex-basis:100%;height:0;"></div>
+          <label style="display:grid;gap:6px;font-weight:800;flex:1;min-width:220px;">Guest Name (សម្រាប់ Copy Link)
+            <input id="f_guestCopy" type="text" placeholder="ឧ: លោក សុខា" style="padding:10px 12px;border:1px solid #ddd;border-radius:12px;width:100%;"/>
+          </label>
           <button id="adminCopyLinkBtn" style="border:1px solid #ddd;border-radius:14px;padding:12px 14px;background:#fff;color:#111;font-weight:800;cursor:pointer;">🔗 Copy Link</button>
           <button id="adminDownloadBtn" style="border:1px solid #ddd;border-radius:14px;padding:12px 14px;background:#fff;color:#111;font-weight:800;cursor:pointer;">⬇️ Download</button>
           <button id="adminDownloadImagesBtn" style="border:1px solid #ddd;border-radius:14px;padding:12px 14px;background:#fff;color:#111;font-weight:800;cursor:pointer;">🖼️ Download Images</button>
@@ -533,13 +537,16 @@ document.addEventListener("keydown", (e) => {
       });
 
       
+      
       document.getElementById("adminCopyLinkBtn")?.addEventListener("click", async () => {
-        const link = window.location.href;
+        const base = window.location.origin + window.location.pathname;
+        const guest = (document.getElementById("f_guestCopy")?.value || "").trim();
+        const url = guest ? `${base}?guest=${encodeURIComponent(guest)}` : base;
         try{
-          await navigator.clipboard.writeText(link);
-          alert("Copied ✅\n" + link);
+          await navigator.clipboard.writeText(url);
+          alert("Copied ✅\n" + url);
         }catch(e){
-          prompt("Copy this link:", link);
+          prompt("Copy this link:", url);
         }
         touchAdminActivity();
       });

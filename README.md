@@ -16,3 +16,6 @@
 ## Guest name
 Add `?guest=NAME` to the URL, e.g.:
 `https://username.github.io/repo/?guest=លោក%20សុខា`
+
+## Copy Link with Guest
+Use Admin Panel field 'Guest Name' then click Copy Link.
